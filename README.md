@@ -12,7 +12,7 @@ This project demonstrates not only **deep learning model building and optimizati
 
 ```
 pneumonia-detection/
-├── app.py                           # Flask backend API to serve predictions
+├── app2.py                           # Flask backend API to serve predictions
 ├── best_pneumonia_cnn_model.h5      # Final trained CNN model file
 ├── chest_xray/                      # Dataset directory containing train/val/test folders
 │   ├── train/
