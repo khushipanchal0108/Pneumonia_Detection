@@ -1,0 +1,123 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    background-color: #f4f4f9;  /* Soft light grayish background for calm look */
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Start the content from the top */
+    height: 100vh;
+    text-align: center;
+    overflow-y: auto;  /* Allow vertical scrolling */
+}
+
+/* Container */
+.container {
+    max-width: 850px;
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;  /* Subtle white background */
+    margin-top: 20px;  /* Prevents content from being at the very top */
+}
+
+/* Header */
+header {
+    margin-bottom: 30px;
+}
+
+header h1 {
+    color: #6a4f4d;  /* Soft muted brown color for header */
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #777;
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* File Upload Section */
+.upload-section {
+    margin-bottom: 30px;
+}
+
+.upload-section input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;  /* Very light gray for file input */
+}
+
+.upload-section button {
+    background-color: #d8a7c1;  /* Soft pastel pink color for the button */
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-section button:hover {
+    background-color: #d08da2;  /* Slightly darker pink */
+}
+
+/* Image Preview Section */
+.image-preview {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center; /* Centers the image horizontally */
+    align-items: center;
+}
+
+#uploaded-image {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    display: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Adding space between image and button */
+.spacing {
+    height: 20px;
+}
+
+/* Result Section */
+.result-container {
+    margin-top: 20px;
+}
+
+#prediction-result {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #6a4f4d;  /* Muted brown for result text */
+}
+
+/* Footer */
+footer {
+    margin-top: 50px;
+    color: #777;
+    font-size: 0.9rem;
+}
+
+footer p {
+    font-weight: lighter;
+    padding-top: 20px;
+}

@@ -4,43 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pneumonia Detection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #007bff;
-        }
-        .upload-btn-wrapper {
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
     <div class="container">
-        <h1>Pneumonia Detection from X-Ray</h1>
-        <form action="{{ url_for('predict') }}" method="post" enctype="multipart/form-data">
-            <div class="upload-btn-wrapper">
-                <input type="file" name="file" accept="image/jpeg" required>
+        <header>
+            <h1>Pneumonia Detection</h1>
+            <p>Upload a Chest X-ray image to detect Pneumonia. Our AI will analyze the image and provide a prediction.</p>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <input type="file" id="image-upload" accept="image/png, image/jpeg" onchange="previewImage()">
+
+                <div class="image-preview">
+                    <img id="uploaded-image" src="" alt="Uploaded Image Preview" />
+                </div>
+
+                <div class="spacing"></div>
+
+                <button onclick="submitImage()">Predict</button>
+                <button id="reset-btn" onclick="resetForm()" style="margin-left: 15px; background-color: #cfcfcf; color: #333;">Clear</button>
             </div>
-            <button type="submit">Upload and Predict</button>
-        </form>
-        <br>
-        {% if prediction_text %}
-        <h3>{{ prediction_text }}</h3>
-        {% endif %}
+
+            <div class="result-container">
+                <h2 id="prediction-result">Prediction Result will appear here</h2>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Pneumonia Detection. All rights reserved. Developed by Khushi & Jheel</p>
+        </footer>
     </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
+
