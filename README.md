@@ -1,193 +1,170 @@
-# Pneumonia Detection from Chest X-Ray Images using Deep Learning
 
-This project is a complete pipeline for **detecting pneumonia from chest X-ray images** using **Convolutional Neural Networks (CNNs)** with automated **hyperparameter tuning** via **Keras Tuner**, and a **Flask web application** to allow real-time predictions from user-uploaded images.
+# Pneumonia Detection from Chest X-Ray Images using Deep Learning (Linux-Based)
 
-The core objective is to build a medical image classifier that distinguishes between **normal** lungs and those affected by **pneumonia**, enabling faster preliminary screening which can assist healthcare professionals.
+This project focuses on detecting **pneumonia from chest X-ray images** using a **deep learning model built with CNNs**, hosted in a **Flask web application**, and deployed and automated on a **Linux environment**.
 
-This project demonstrates not only **deep learning model building and optimization**, but also how to **deploy the model** into a usable web service for real-world interaction.
+As part of our Open Source Technology coursework, we developed this complete pipeline, starting from dataset preprocessing, model training with **automated hyperparameter tuning**, local Flask deployment for real-time inference, resolving issues collaboratively, and automating the process via **shell scripting** and **cron jobs**. The project demonstrates the practical use of Linux, Python, and open-source tools to build a medical-grade AI solution from scratch.
 
 ---
 
 ## Project Structure
 
 ```
-Pneumonia-Detection/
+Pneumonia_Detection/
 │
 ├── Backend/
-│   ├── requirements.txt          # Lists all required Python packages for backend
-│   ├── cnn_model.py              # Code for training the CNN model
-│   └── ...
+│   ├── cnn_model.py              # CNN model training and hyperparameter tuning
+│   ├── requirements.txt          # Python dependencies for training and inference
 │
 ├── Frontend/
-│   ├── app2.py                   # Flask application that serves the frontend and handles requests
-│   ├── index.html                # Main HTML file for the web UI
-│   ├── script.js                 # JavaScript file for front-end interactivity
-│   └── styles.css                # CSS file for UI styling
+│   ├── app2.py                   # Flask app handling image upload and prediction
+│   ├── index.html                # Frontend UI for users
+│   ├── script.js                 # JavaScript for frontend validation and preview
+│   ├── styles.css                # Custom styles for frontend
 │
-├── script.sh                     # Shell script to automate virtual environment setup, install dependencies, and run the app
-└── README.md                     # Project documentation file (this file)
-
+├── script.sh                     # Shell script to automate environment setup and app execution
+├── cron_log.txt                  # Output log file for cron job (auto-generated)
+└── README.md                     # Project documentation
 ```
 
 ---
 
-## What This Project Does
+## Key Features
 
-1. **Dataset Download & Setup**  
-   Downloads the official **Chest X-Ray Pneumonia dataset** from Kaggle and organizes it into training, validation, and testing sets.
+### 1. Model Training and Hyperparameter Tuning
 
-2. **Data Augmentation & Preprocessing**  
-   Uses `ImageDataGenerator` to apply transformations like zoom, rotation, flipping, etc., to increase data diversity and improve model generalization.
+- Utilizes **TensorFlow/Keras** to define a CNN with convolutional and dense layers.
+- Incorporates **Keras Tuner** to search for optimal hyperparameters:
+  - Number of filters
+  - Dense units
+  - Dropout rates
+  - Optimizer choice
+- Employs **data augmentation** (`ImageDataGenerator`) for generalization.
+- Separates dataset into training, validation, and testing sets.
 
-3. **Model Building with Keras Tuner**  
-   Implements a CNN with 3 convolutional layers, dense layers, and dropout. Uses **Keras Tuner** to automatically find the best:
-   - Number of filters
-   - Dense units
-   - Dropout rate
-   - Optimizer
+### 2. Flask-Based Prediction System
 
-4. **Model Training & Evaluation**  
-   Trains the CNN using binary classification (Normal vs Pneumonia) and evaluates it on the validation and test sets.
+- **Flask server** to handle:
+  - Image upload via HTML form
+  - Resizing and preprocessing uploaded images
+  - Model inference
+  - Returning prediction result to the user
+- Accessible locally via `http://127.0.0.1:5000`
 
-5. **Web Deployment with Flask**  
-   Integrates the trained model into a Flask web server, enabling users to:
-   - Upload chest X-ray images
-   - Automatically resize and preprocess them
-   - Predict if the image shows pneumonia or not
-   - View results in the browser in real-time
+### 3. Linux-Based Shell Scripting & Automation
 
-6. **User Interface**  
-   A simple HTML form lets users interact with the backend without needing technical knowledge. Upload an image and instantly see the prediction result.
+- **script.sh** automates:
+  - Creating a Python virtual environment
+  - Installing dependencies
+  - Launching the Flask application
+- **Cron job** executes this script at scheduled intervals, enabling continuous automation.
+
+### 4. Bug Resolution via Open Source Workflow
+
+- Raised issues on GitHub during development (e.g., file validation, error handling).
+- Collaboratively debugged and resolved using Linux command-line tools and Git.
+- Ensured version control through meaningful commits and branch management.
 
 ---
 
----
+## Technology Stack
 
-## Tools & Technologies Used
-
-- **Programming Languages**: Python, HTML, CSS, JavaScript
-- **Frameworks**: Flask (Python), TensorFlow (for CNN model)
-- **Libraries**: Flask-CORS, Boto3, Pillow
-- **Styling**: Tailwind CSS (optional), Bootstrap (or custom CSS for UI design)
-- **Database**: None (local storage for images)
+- **Languages**: Python, HTML, CSS, JavaScript
+- **Frameworks**: TensorFlow, Keras, Flask
+- **Frontend**: Plain HTML/CSS, optional Tailwind
+- **Utilities**: Shell scripting, Cron jobs
 - **Version Control**: Git, GitHub
-- **Other Tools**: Shell scripting, Cron jobs for automation
 
 ---
 
-## Backend
+## Backend Details
 
-The **Backend** folder contains the following components:
+Located in the `Backend/` folder.
 
-- **requirements.txt**: Specifies the required dependencies (e.g., Flask, TensorFlow, Pillow, etc.) that can be installed via `pip install -r requirements.txt`.
-- **cnn_model.py**: Python code that defines the CNN model for pneumonia detection, including training and prediction logic.
-- **app.py**: Flask-based server file that serves the web interface, receives image uploads, handles inference requests, and returns results.
-
-### Setting up the Backend
-
-To set up the backend environment, follow these steps:
-
-1. Navigate to the **Backend** directory.
-2. Create a virtual environment (if not already created):
-   ```
-   python3.12 -m venv tf-venv
-   source tf-venv/bin/activate
-   ```
-3. Install the required dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+- `cnn_model.py`: Trains the CNN and saves the model.
+- `requirements.txt`: Python dependencies (`tensorflow`, `flask`, `keras-tuner`, `pillow`, etc.)
 
 ---
 
-## Frontend
+## Frontend Details
 
-The **Frontend** folder contains files responsible for the user interface.
+Located in the `Frontend/` folder.
 
-- **app2.py**: This is the Flask file that serves the frontend. It handles routes for rendering the HTML page, accepting file uploads, and providing predictions.
-- **index.html**: The main HTML file that defines the structure of the web application. It includes a file upload form, image preview area, and a prediction result area.
-- **script.js**: JavaScript file that manages the image upload, file validation, image preview functionality, and submission behavior.
-- **styles.css**: Contains styling rules for the web application. You can customize the UI using either this file or use a framework like Bootstrap.
-
-### UI Components
-
-1. **File Upload**: The file upload component allows users to select an image file (PNG, JPG, JPEG). It validates file types both on the client-side (JavaScript) and server-side (Flask).
-2. **Image Preview**: Once an image is uploaded, it is displayed as a preview before the user clicks on the "Predict" button.
-3. **Prediction Results**: After the model processes the image, the prediction result is displayed on the webpage.
+- `app2.py`: Flask app for rendering HTML and serving predictions.
+- `index.html`: Upload interface with form and prediction output.
+- `script.js`: Enhances frontend with:
+  - File format validation
+  - Image preview
+  - Reset functionality
+- `styles.css`: Basic styling for layout and responsiveness.
 
 ---
 
 ## Shell Script (`script.sh`)
 
-The **script.sh** file is responsible for automating several steps for setting up the virtual environment, installing dependencies, and running the application.
+Automates the entire setup and execution pipeline.
 
-- **Virtual Environment Setup**: The script creates a virtual environment, installs dependencies, and runs the Flask app.
-- **Cron Job Setup**: The script can also be used to run regular tasks like training the model or updating logs automatically.
+- Creates a virtual environment
+- Installs dependencies
+- Activates the environment
+- Starts the Flask server
+- Logs execution if called via `cron`
 
-To use the script, make sure it is executable by running:
-```
+Make executable:
+```bash
 chmod +x script.sh
 ```
-You can then execute it with:
-```
+
+Run manually:
+```bash
 ./script.sh
 ```
 
 ---
 
-## Cron Jobs
+## Cron Job Integration
 
-The **cron job** is set to execute the `script.sh` at regular intervals (every minute in this case). It is configured via the cron table (`crontab -e`), ensuring that the application stays up-to-date or performs regular maintenance tasks (such as checking for updates or training the model).
+To automate execution:
 
-Cron job example:
+```bash
+crontab -e
+```
+
+Add the following line to run `script.sh` every minute:
+
 ```
 * * * * * /bin/bash /home/khushipanchal/Pneumonia_Detection/script.sh >> /home/khushipanchal/cron_log.txt 2>&1
 ```
 
----
-
-## Frontend Enhancements
-
-### Bug Fixes & Enhancements
-
-Several bugs were fixed and enhancements were added:
-
-1. **File Upload Validation**: Only image files with extensions `.jpg`, `.jpeg`, or `.png` are allowed. Invalid files will show a user-friendly error message.
-2. **Image Preview**: After uploading an image, the app displays a preview of the image before the user clicks on "Predict".
-3. **Page Reset Functionality**: After making a prediction, users can clear the form and result with a reset button or by reloading the page. This ensures a fresh start for new submissions.
-
-### JavaScript Enhancements
-
-- **File Type Validation**: Client-side validation to ensure only images are uploaded.
-- **Image Preview**: JavaScript function to display the selected image immediately after upload.
-- **Reset Button**: A button to clear the input form and results.
+This ensures the application restarts automatically or performs periodic tasks like model retraining or logging.
 
 ---
 
-## Setting up the Project
+## User Interface Features
 
-### 1. Clone the Repository
+- **File Upload**: Accepts `.jpg`, `.jpeg`, `.png` files.
+- **Live Preview**: Displays image preview post-upload.
+- **Prediction Display**: Results shown in real-time upon submission.
+- **Reset Functionality**: Clears UI without refreshing the page.
 
-To get started, clone the project repository to your local machine:
+---
 
-```
-git clone https://github.com/khushipanchal0108/Pneumonia_Detection.git
-cd Pneumonia_Detection
-```
+## Deployment Workflow (Linux)
 
-### 2. Set up the Backend
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/khushipanchal0108/Pneumonia_Detection.git
+   cd Pneumonia_Detection
+   ```
 
-### 3. Set up the Frontend
+2. **Run Shell Script**:
+   ```bash
+   ./script.sh
+   ```
 
-### 4. Running the Application
+3. **Access Web App**:
+   Open `http://127.0.0.1:5000/` in your browser.
 
-1. Start the Flask backend by running `python app2.py` in the `Frontend` directory.
-2. The app will be available at `http://127.0.0.1:5000/`.
-
-### 5. Running the Shell Script
-
-Use `./script.sh` to automate the setup and start the Flask app.
-
-
-
+4. **Enable Cron Job**:
+   Use `crontab -e` to schedule automation.
 
